@@ -1,3 +1,4 @@
+/** @module planner/ideas */
 import { CURRENCIES } from './currencies.js';
 
 const STOP_WORDS = new Set([
@@ -7,6 +8,12 @@ const STOP_WORDS = new Set([
 
 const DEFAULT_IDEA_COUNT = 8;
 
+/**
+ * Categorises an event into a budget tier (essential, balanced, premium).
+ * @param {object} definition - Event archetype definition
+ * @param {{ totalBudget: number, guestCount: number, currency: string }} input
+ * @returns {'essential' | 'balanced' | 'premium'}
+ */
 export function budgetTier(definition, input) {
   const perGuestUsd = (input.totalBudget / input.guestCount) * CURRENCIES[input.currency].usdRate;
   const [essentialBelow, balancedBelow] = definition.tierThresholdsUsd;
@@ -37,9 +44,13 @@ function matchedKeywords(idea, keywords) {
   return idea.tags.filter((tag) => keywords.has(normalise(tag)));
 }
 
-// Picks ideas that fit the guest count and budget, favours those matching the
-// stated theme and interests, then fills the rest with one idea per category in
-// turn so the list stays varied.
+/**
+ * Selects tailored ideas matching budget tier and user keywords across categories.
+ * @param {object} definition - Archetype data definition
+ * @param {object} input - User event input
+ * @param {number} [count=DEFAULT_IDEA_COUNT]
+ * @returns {Array<{ title: string, detail: string, category: string, matchedOn: string[] }>}
+ */
 export function selectIdeas(definition, input, count = DEFAULT_IDEA_COUNT) {
   const tier = budgetTier(definition, input);
   const keywords = extractKeywords(`${input.theme} ${input.interests}`);

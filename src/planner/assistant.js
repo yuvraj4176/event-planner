@@ -1,3 +1,5 @@
+/** @module planner/assistant */
+
 // Built-in answers for the "Ask the planner" box. Used whenever the AI service
 // is not configured or cannot be reached, so the feature never goes dark.
 
@@ -11,6 +13,12 @@ const TOPICS = [
 
 const MAX_LISTED = 3;
 
+/**
+ * Formats an amount as a localized whole-number currency string.
+ * @param {number} amount
+ * @param {string} currency
+ * @returns {string}
+ */
 export function formatMoney(amount, currency) {
   return new Intl.NumberFormat('en', {
     style: 'currency',
@@ -141,8 +149,11 @@ const SITE_TOPICS = [
 export const GENERAL_HELP_TEXT =
   'I can help with planning budgets, timelines, vendors and ideas, and with using this site. Create a plan on the Plan an event page for answers specific to your event.';
 
-// Answers for the chat assistant when no model is available and the visitor
-// has no saved plan.
+/**
+ * Answers questions for visitors who do not have an active plan yet.
+ * @param {string} question
+ * @returns {string}
+ */
 export function answerGeneral(question) {
   const tokens = tokenise(question);
   let best = null;
@@ -157,6 +168,13 @@ export function answerGeneral(question) {
   return best ? best.answer : GENERAL_HELP_TEXT;
 }
 
+/**
+ * Answers questions using the computed event plan without AI dependencies.
+ * @param {string} question
+ * @param {object} plan
+ * @param {string} [today]
+ * @returns {string}
+ */
 export function answerLocally(question, plan, today) {
   const topic = pickTopic(question);
   return topic ? ANSWERS[topic](plan, today) : HELP_TEXT;

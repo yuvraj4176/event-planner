@@ -1,7 +1,13 @@
+/** @module planner/currencies */
+
 // Supported currencies. `usdRate` is a rough conversion used only to place a
 // budget in a tier (essential, balanced, premium); it is never shown to users
 // and is not used for any money calculation.
 
+/**
+ * Currency configuration with display labels and exchange tiers.
+ * @type {Readonly<Record<string, { label: string, usdRate: number }>>}
+ */
 export const CURRENCIES = Object.freeze({
   INR: { label: 'Indian Rupee', usdRate: 0.012 },
   USD: { label: 'US Dollar', usdRate: 1 },

@@ -1,3 +1,4 @@
+/** @module planner/validate */
 import { addDays, parseIsoDate } from './dates.js';
 import { CURRENCIES } from './currencies.js';
 import { MAX_PRIORITIES, getEventType, priorityOptions } from './eventTypes.js';
@@ -17,6 +18,11 @@ const CONTROL_CHARACTERS = /\p{Cc}/gu;
 // Bidirectional overrides can make text render differently from how it is stored.
 const BIDI_OVERRIDES = /[‪-‮⁦-⁩]/g;
 
+/**
+ * Sanitizes input text by removing control characters, bidi overrides, and collapsing spaces.
+ * @param {unknown} value
+ * @returns {string}
+ */
 export function cleanText(value) {
   if (typeof value !== 'string') return '';
   return value.replace(CONTROL_CHARACTERS, ' ').replace(BIDI_OVERRIDES, '').replace(/\s+/g, ' ').trim();
@@ -70,8 +76,13 @@ function validatePriorities(raw, definition, fail) {
   return unique;
 }
 
-// Validates and normalises an event description. Only known fields are copied
-// across, so unexpected properties in the request never reach the planner.
+/**
+ * Validates and normalises an event description.
+ * Only known fields are copied across to prevent prototype pollution or parameter injection.
+ * @param {unknown} raw - Raw request payload
+ * @param {{ today: string }} options - Context options including current ISO date
+ * @returns {{ ok: true, value: object } | { ok: false, errors: Array<{ field: string, message: string }> }}
+ */
 export function validateEventInput(raw, { today }) {
   if (!isPlainObject(raw)) {
     return { ok: false, errors: [{ field: 'body', message: 'Request body must be a JSON object.' }] };

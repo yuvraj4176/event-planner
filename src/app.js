@@ -47,9 +47,11 @@ function parsePathname(req) {
   }
 }
 
-// Builds the function that answers one request. API routes are plain functions
-// over validated JSON. `staticFiles` is optional: on a host that serves the
-// website itself (such as Vercel) only the API is handled here.
+/**
+ * Builds the HTTP request listener dispatching API and static file requests.
+ * @param {{ config: object, aiClient: object, logger?: object, now?: () => number, staticFiles?: object | null }} options
+ * @returns {(req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) => Promise<void>}
+ */
 export function createRequestHandler({ config, aiClient, logger = silentLogger, now = Date.now, staticFiles = null }) {
   const assistant = createAssistantService({ aiClient, logger, now });
   const router = createRouter(createApiRoutes({ assistant, now }));
@@ -117,7 +119,11 @@ export function createRequestHandler({ config, aiClient, logger = silentLogger, 
   };
 }
 
-// Builds the HTTP server without starting it. Static files are read once at startup.
+/**
+ * Builds the HTTP server without starting it. Static files are read once at startup.
+ * @param {{ publicDir?: string, [key: string]: any }} options
+ * @returns {Promise<import('node:http').Server>}
+ */
 export async function createApp({ publicDir = DEFAULT_PUBLIC_DIR, ...options }) {
   const staticFiles = await loadStaticFiles(publicDir);
   const server = http.createServer(createRequestHandler({ ...options, staticFiles }));
