@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Event Planner logo">
+  <defs>
+    <linearGradient id="ep-badge" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4f27e8"/>
+      <stop offset="0.45" stop-color="#8d25d0"/>
+      <stop offset="0.8" stop-color="#e12a7d"/>
+      <stop offset="1" stop-color="#ff7b47"/>
+    </linearGradient>
+    <linearGradient id="ep-accent" x1="20" y1="36" x2="44" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffbe3b"/>
+      <stop offset="1" stop-color="#ff6b4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#ep-badge)"/>
+  <circle cx="16" cy="12" r="28" fill="#ffffff" fill-opacity="0.14"/>
+  <rect x="12" y="15" width="40" height="36" rx="9" fill="#ffffff" fill-opacity="0.96"/>
+  <path d="M12 24a9 9 0 0 1 9-9h22a9 9 0 0 1 9 9v3H12z" fill="#ece6ff"/>
+  <rect x="20" y="10" width="5" height="10" rx="2.5" fill="#4f27e8"/>
+  <rect x="39" y="10" width="5" height="10" rx="2.5" fill="#e12a7d"/>
+  <circle cx="21" cy="36" r="2.5" fill="#4f27e8"/>
+  <circle cx="32" cy="36" r="2.5" fill="#8d25d0"/>
+  <circle cx="43" cy="36" r="2.5" fill="#e12a7d"/>
+  <path d="M32 23l2.2 4.6 5 .8-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.8z" fill="url(#ep-accent)"/>
+  <circle cx="48" cy="46" r="2" fill="#19c3b1"/>
+  <circle cx="16" cy="47" r="1.5" fill="#ffbe3b"/>
+</svg>

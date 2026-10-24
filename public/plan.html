@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#4b2fd0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17123a" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Describe your wedding, birthday or community event and get a budget, a dated timeline, a vendor checklist and personalised ideas."
+    />
+    <title>Plan an event - Celebration Planner</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/chatbot.css" />
+    <link rel="stylesheet" href="/css/print.css" media="print" />
+    <script type="module" src="/js/site.js"></script>
+    <script type="module" src="/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <noscript>
+      <p class="noscript-banner">This application requires JavaScript to run. Please enable JavaScript in your browser settings.</p>
+    </noscript>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt="" width="40" height="40" /><span class="brand-name">Event <span class="brand-accent">Planner</span></span></a>
+        <nav aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="/">Home</a></li>
+            <li><a class="nav-cta" href="/plan.html" aria-current="page">Plan an event</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero hero-compact" aria-labelledby="page-title">
+        <span class="blob blob-1" aria-hidden="true"></span>
+        <span class="blob blob-2" aria-hidden="true"></span>
+        <div class="container hero-inner">
+          <div class="hero-copy">
+          <p class="eyebrow">Event planner</p>
+          <h1 id="page-title">Plan your event</h1>
+          <p class="lead">Three short steps take you from an idea to a plan you can follow.</p>
+          <ol id="stepper" class="stepper" aria-label="Planning steps">
+            <li class="step" aria-current="step"><span class="step-number">1</span><span class="step-icon" data-icon="edit"></span><span>Describe your event</span></li>
+            <li class="step"><span class="step-number">2</span><span class="step-icon" data-icon="sparkles"></span><span>Review your plan</span></li>
+            <li class="step"><span class="step-number">3</span><span class="step-icon" data-icon="checklist"></span><span>Track and refine</span></li>
+          </ol>
+          </div>
+        </div>
+      </section>
+
+      <div class="container page-body">
+        <noscript>
+          <p class="notice" role="note">This planner needs JavaScript to build and display your plan. Please enable it and reload the page.</p>
+        </noscript>
+
+        <p id="status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+        <div class="layout">
+          <section class="panel form-panel" aria-labelledby="form-heading">
+            <div class="panel-heading">
+              <h2 id="form-heading" tabindex="-1">Step 1: Event details</h2>
+              <p class="panel-intro">Tell us about your event. Fields marked required are needed to build your plan.</p>
+            </div>
+
+            <div id="error-summary" class="error-summary" tabindex="-1" hidden>
+              <h3 id="error-summary-title">Please fix the following</h3>
+              <ul id="error-summary-list"></ul>
+            </div>
+
+            <form id="event-form" novalidate>
+              <div class="form-group">
+                <h3 class="form-group-title"><span class="form-group-icon" data-icon="calendar"></span>The basics</h3>
+                <div class="form-grid">
+                  <fieldset class="field field-wide" aria-describedby="error-eventType">
+                    <legend>Event type <span class="required">(required)</span></legend>
+                    <div class="choice-cards">
+                      <label class="choice-card" for="type-wedding">
+                        <input type="radio" id="type-wedding" name="eventType" value="wedding" checked />
+                        <span class="choice-icon" data-icon="heart"></span>
+                        <span class="choice-title">Wedding</span>
+                        <span class="choice-text">Ceremony and reception</span>
+                      </label>
+                      <label class="choice-card" for="type-birthday">
+                        <input type="radio" id="type-birthday" name="eventType" value="birthday" />
+                        <span class="choice-icon" data-icon="cake"></span>
+                        <span class="choice-title">Birthday</span>
+                        <span class="choice-text">Any age or milestone</span>
+                      </label>
+                      <label class="choice-card" for="type-community">
+                        <input type="radio" id="type-community" name="eventType" value="community" />
+                        <span class="choice-icon" data-icon="users"></span>
+                        <span class="choice-title">Community</span>
+                        <span class="choice-text">Festival, fundraiser or meetup</span>
+                      </label>
+                    </div>
+                    <p class="field-error" id="error-eventType" hidden></p>
+                  </fieldset>
+
+                  <div class="field field-wide">
+                    <label for="eventName">Event name <span class="required">(required)</span></label>
+                    <input id="eventName" name="eventName" type="text" maxlength="80" autocomplete="off" required aria-describedby="hint-eventName error-eventName" />
+                    <p class="hint" id="hint-eventName">A short name, such as "Asha and Ravi" or "Riverside Spring Fair".</p>
+                    <p class="field-error" id="error-eventName" hidden></p>
+                  </div>
+
+                  <div class="field">
+                    <label for="eventDate">Event date <span class="required">(required)</span></label>
+                    <input id="eventDate" name="eventDate" type="date" required aria-describedby="hint-eventDate error-eventDate" />
+                    <p class="hint" id="hint-eventDate">Today or any day within five years.</p>
+                    <p class="field-error" id="error-eventDate" hidden></p>
+                  </div>
+
+                  <div class="field">
+                    <label for="guestCount">Number of guests <span class="required">(required)</span></label>
+                    <input id="guestCount" name="guestCount" type="number" inputmode="numeric" min="1" max="5000" step="1" required aria-describedby="hint-guestCount error-guestCount" />
+                    <p class="hint" id="hint-guestCount">Everyone invited, including children.</p>
+                    <p class="field-error" id="error-guestCount" hidden></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <h3 class="form-group-title"><span class="form-group-icon" data-icon="budget"></span>Budget</h3>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency" aria-describedby="hint-currency error-currency">
+                      <option value="INR">INR - Indian Rupee</option>
+                      <option value="USD">USD - US Dollar</option>
+                      <option value="EUR">EUR - Euro</option>
+                      <option value="GBP">GBP - British Pound</option>
+                      <option value="AUD">AUD - Australian Dollar</option>
+                      <option value="CAD">CAD - Canadian Dollar</option>
+                    </select>
+                    <p class="hint" id="hint-currency">Used for every amount in your plan.</p>
+                    <p class="field-error" id="error-currency" hidden></p>
+                  </div>
+
+                  <div class="field">
+                    <label for="totalBudget">Total budget <span class="required">(required)</span></label>
+                    <input id="totalBudget" name="totalBudget" type="number" inputmode="numeric" min="100" step="1" required aria-describedby="hint-totalBudget error-totalBudget" />
+                    <p class="hint" id="hint-totalBudget">The full amount you are prepared to spend.</p>
+                    <p class="field-error" id="error-totalBudget" hidden></p>
+                  </div>
+
+                  <fieldset class="field field-wide" id="priorities" aria-describedby="hint-priorities error-priorities">
+                    <legend>Budget priorities</legend>
+                    <p class="hint" id="hint-priorities">Choose up to three areas that should receive a larger share of the budget.</p>
+                    <div id="priority-options" class="check-list" tabindex="-1"></div>
+                    <p class="field-error" id="error-priorities" hidden></p>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <h3 class="form-group-title"><span class="form-group-icon" data-icon="sparkles"></span>Make it personal</h3>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="location">City or area</label>
+                    <input id="location" name="location" type="text" maxlength="80" autocomplete="off" aria-describedby="hint-location error-location" />
+                    <p class="hint" id="hint-location">Optional. Where the event will take place.</p>
+                    <p class="field-error" id="error-location" hidden></p>
+                  </div>
+
+                  <div class="field">
+                    <label for="theme">Theme or style</label>
+                    <input id="theme" name="theme" type="text" maxlength="80" autocomplete="off" aria-describedby="hint-theme error-theme" />
+                    <p class="hint" id="hint-theme">Optional. For example: garden, retro, minimal or traditional.</p>
+                    <p class="field-error" id="error-theme" hidden></p>
+                  </div>
+
+                  <div class="field field-wide">
+                    <label for="interests">Interests and preferences</label>
+                    <textarea id="interests" name="interests" rows="3" maxlength="300" aria-describedby="hint-interests error-interests"></textarea>
+                    <p class="hint" id="hint-interests">Optional. Music, food, hobbies or anything guests love. Used to personalise ideas.</p>
+                    <p class="field-error" id="error-interests" hidden></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions form-actions-bar">
+                <button type="submit" class="button button-primary" id="submit-button">Create my plan</button>
+                <button type="button" class="button button-quiet" id="clear-button" hidden>Clear saved plan</button>
+              </div>
+            </form>
+          </section>
+
+          <aside id="info-panel" class="panel info-panel" aria-labelledby="info-heading">
+            <div class="panel-heading">
+              <h2 id="info-heading">Steps 2 and 3: Your plan</h2>
+              <p class="panel-intro">When you create your plan it appears below the form, ready to review and track.</p>
+            </div>
+            <ul class="feature-list">
+              <li><strong>Budget breakdown</strong> that adds up exactly, with a tracker for what you spend.</li>
+              <li><strong>Dated timeline</strong> that adapts when your event is closer than ideal.</li>
+              <li><strong>Vendor checklist</strong> with booking deadlines and questions to ask.</li>
+              <li><strong>Personalised ideas</strong> based on your theme, guests and budget.</li>
+              <li><strong>Ask the planner</strong> for quick answers about your plan.</li>
+            </ul>
+            <p class="info-note">
+              <span class="inline-icon" data-icon="shield"></span>
+              <span>Your plan stays in this browser. Nothing is saved on the server.</span>
+            </p>
+          </aside>
+        </div>
+
+        <section class="results" aria-label="Your plan">
+          <div id="results" class="panel results-panel" hidden>
+            <h2 id="results-heading" tabindex="-1"></h2>
+            <div id="results-body"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+      <form method="dialog" class="dialog-body">
+        <h2 id="confirm-title">Clear saved plan?</h2>
+        <p id="confirm-text">This removes your plan, checked tasks and spending from this browser. It cannot be undone.</p>
+        <div class="form-actions">
+          <button type="submit" class="button button-primary" value="confirm" id="confirm-yes">Clear plan</button>
+          <button type="submit" class="button button-quiet" value="cancel" id="confirm-no">Keep plan</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="print-root" aria-hidden="true"></div>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="brand footer-brand"><img class="brand-mark" src="/logo-mark.svg" alt="" width="40" height="40" /><span class="brand-name">Event <span class="brand-accent">Planner</span></span></p>
+          <p>A planning assistant for weddings, birthdays and community events.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <h2 class="footer-title">Pages</h2>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/plan.html">Plan an event</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Home page sections">
+          <h2 class="footer-title">On the home page</h2>
+          <ul class="footer-links">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#how-it-works">How it works</a></li>
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2 class="footer-title">Good to know</h2>
+          <p>Plans are stored only in this browser. Budget shares and dates are planning guidance, not vendor quotes.</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>Event Planner is open source software released under the MIT licence.</p>
+      </div>
+    </footer>
+  </body>
+</html>

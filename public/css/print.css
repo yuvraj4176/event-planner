@@ -1,0 +1,303 @@
+/* The printed plan. Loaded for printing only. The page itself is hidden and the
+   print sheet (built by printSheet.js) is shown instead. It always prints dark
+   text on white, whatever colour scheme the screen is using. */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  body:has(#print-root > *) > :not(#print-root) {
+    display: none !important;
+  }
+
+  #print-root {
+    display: block;
+  }
+
+  .print-document {
+    --p-text: #1b1740;
+    --p-muted: #4d4876;
+    --p-primary: #4b2fd0;
+    --p-accent: #b4235f;
+    --p-line: #b9b2dd;
+    --p-tint: #f1eeff;
+
+    color: var(--p-text);
+    font: 10pt/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-document * {
+    box-sizing: border-box;
+  }
+
+  .print-document p {
+    margin: 0;
+  }
+
+  /* Banner */
+
+  .print-banner {
+    margin-bottom: 5mm;
+    padding: 7mm 8mm;
+    color: #fff;
+    border-radius: 3mm;
+    background: linear-gradient(120deg, #2b1a8a, #6a1fb0 55%, #b3195f);
+  }
+
+  .print-brand {
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .print-banner h1 {
+    margin: 3mm 0 1mm;
+    font: 700 24pt/1.15 Georgia, "Times New Roman", serif;
+  }
+
+  .print-subtitle {
+    font-size: 11.5pt;
+  }
+
+  .print-prepared {
+    margin-top: 1.5mm;
+    font-size: 9pt;
+  }
+
+  /* Sections */
+
+  .print-section {
+    margin-bottom: 6mm;
+  }
+
+  .print-heading {
+    margin: 0 0 2.5mm;
+    padding-bottom: 1.2mm;
+    color: var(--p-primary);
+    font: 700 14pt/1.2 Georgia, "Times New Roman", serif;
+    border-bottom: 0.6mm solid var(--p-accent);
+    break-after: avoid;
+  }
+
+  .print-document h3 {
+    margin: 4mm 0 1.5mm;
+    color: var(--p-accent);
+    font-size: 10pt;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    break-after: avoid;
+  }
+
+  .print-document h4 {
+    margin: 0 0 1.5mm;
+    font-size: 9pt;
+    color: var(--p-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .print-points {
+    margin: 0;
+    padding-left: 5mm;
+  }
+
+  .print-points li {
+    margin-bottom: 0.8mm;
+  }
+
+  .print-points li::marker {
+    color: var(--p-accent);
+  }
+
+  .print-note,
+  .print-meta {
+    color: var(--p-muted);
+    font-size: 9pt;
+  }
+
+  .print-note {
+    margin-top: 1mm;
+  }
+
+  /* Checklists */
+
+  .print-checklist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .print-check {
+    display: flex;
+    gap: 2.5mm;
+    margin-bottom: 2mm;
+    break-inside: avoid;
+  }
+
+  .print-check-body {
+    flex: 1;
+  }
+
+  .print-check .print-note {
+    margin-top: 0;
+  }
+
+  .print-check-title {
+    font-weight: 600;
+  }
+
+  .print-check.is-done .print-check-title {
+    color: var(--p-muted);
+    text-decoration: line-through;
+  }
+
+  .print-box {
+    display: inline-block;
+    flex: none;
+    width: 3.6mm;
+    height: 3.6mm;
+    margin-top: 0.8mm;
+    border: 0.4mm solid var(--p-primary);
+    border-radius: 0.7mm;
+  }
+
+  .print-box.is-checked {
+    background: var(--p-primary);
+  }
+
+  .print-box.is-checked::after {
+    content: "";
+    display: block;
+    width: 1.1mm;
+    height: 2.1mm;
+    margin: 0.2mm 0 0 1.05mm;
+    border: solid #fff;
+    border-width: 0 0.45mm 0.45mm 0;
+    transform: rotate(45deg);
+  }
+
+  /* Budget table */
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  .print-caption {
+    padding-bottom: 1.5mm;
+    color: var(--p-muted);
+    text-align: left;
+  }
+
+  .print-table th,
+  .print-table td {
+    padding: 1.6mm 2mm;
+    text-align: left;
+    border-bottom: 0.25mm solid var(--p-line);
+  }
+
+  .print-table thead th,
+  .print-table tfoot th,
+  .print-table tfoot td {
+    background: var(--p-tint);
+    font-weight: 700;
+  }
+
+  .print-table tbody th {
+    font-weight: 400;
+  }
+
+  .print-table th:first-child,
+  .print-table td:first-child {
+    width: 12mm;
+  }
+
+  .print-table .num {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .print-table tr {
+    break-inside: avoid;
+  }
+
+  .print-table .is-over td:last-child {
+    color: var(--p-accent);
+    font-weight: 700;
+  }
+
+  .print-table .print-box {
+    display: block;
+    margin: 0;
+  }
+
+  /* Timeline and vendors */
+
+  .print-vendor {
+    margin-bottom: 4mm;
+    padding: 3mm 4mm;
+    border: 0.3mm solid var(--p-line);
+    border-left: 1.4mm solid var(--p-primary);
+    border-radius: 1.5mm;
+    break-inside: avoid;
+  }
+
+  .print-vendor-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2mm;
+    margin: 0 0 1.5mm;
+    color: var(--p-text);
+    font-size: 11pt;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .print-tag {
+    padding: 0 2mm;
+    color: var(--p-primary);
+    font-size: 8pt;
+    border: 0.3mm solid var(--p-primary);
+    border-radius: 5mm;
+  }
+
+  .print-columns {
+    display: grid;
+    gap: 4mm;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 2.5mm;
+  }
+
+  .print-write {
+    display: flex;
+    align-items: flex-end;
+    gap: 2mm;
+    margin-top: 3mm;
+    color: var(--p-muted);
+    font-size: 9pt;
+  }
+
+  .print-line {
+    flex: 1;
+    height: 6mm;
+    border-bottom: 0.3mm solid var(--p-muted);
+  }
+
+  .print-footer {
+    padding-top: 3mm;
+    color: var(--p-muted);
+    font-size: 8.5pt;
+    text-align: center;
+    border-top: 0.3mm solid var(--p-line);
+  }
+}

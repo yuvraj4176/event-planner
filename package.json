@@ -1,0 +1,19 @@
+{
+  "name": "celebration-event-planner",
+  "version": "1.0.0",
+  "description": "A planning assistant for weddings, birthdays and community events: budgets, timelines, vendor checklists and personalised ideas.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch-path=./src --watch-path=./public server.js",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=\"src/**\" --test-coverage-include=\"public/js/**\" --test-coverage-include=\"api/**\" --test-coverage-lines=95 --test-coverage-branches=90 --test-coverage-functions=95 \"tests/**/*.test.js\"",
+    "check": "npm run lint && node --check server.js && npm test",
+    "lint": "node scripts/lint.js"
+  }
+}
