@@ -9,6 +9,9 @@ It is built for people planning their own wedding, birthday or community event w
 
 **The challenge it addresses:** a GenAI-powered planning assistant that helps users organise weddings, birthdays and community events with budgets, timelines, vendor checklists and personalised ideas.
 
+- **Live Demo:** [https://event-planner-rosy-three.vercel.app](https://event-planner-rosy-three.vercel.app)
+- **GitHub Repository:** [https://github.com/yuvraj4176/event-planner](https://github.com/yuvraj4176/event-planner)
+
 ![Home page](docs/screenshots/Home.png)
 
 
