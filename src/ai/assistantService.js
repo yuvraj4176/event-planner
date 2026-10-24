@@ -1,3 +1,4 @@
+/** @module ai/assistantService */
 import { answerGeneral, answerLocally } from '../planner/assistant.js';
 import { selectIdeas } from '../planner/ideas.js';
 import { getEventType } from '../planner/eventTypes.js';
@@ -19,9 +20,11 @@ const ANSWER_MAX_TOKENS = 600;
 const CACHE_MAX_ENTRIES = 100;
 const CACHE_TTL_MS = 10 * 60 * 1000;
 
-// Combines the Gemini client with the built-in planner. Every method returns a
-// usable result: when no model can answer, or an answer is unusable, the
-// built-in planner answers instead and `source` says which one did.
+/**
+ * Combines Google Gemini models with the built-in deterministic offline fallback planner.
+ * @param {{ aiClient: object, logger: object, now?: () => number }} options
+ * @returns {{ enabled: boolean, generateIdeas: Function, answerQuestion: Function, chat: Function }}
+ */
 export function createAssistantService({ aiClient, logger, now = Date.now }) {
   const ideasCache = createTtlCache({ maxEntries: CACHE_MAX_ENTRIES, ttlMs: CACHE_TTL_MS, now });
 

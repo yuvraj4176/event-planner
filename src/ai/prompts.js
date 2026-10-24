@@ -1,3 +1,5 @@
+/** @module ai/prompts */
+
 // Prompt construction and response parsing for the AI assistant.
 //
 // Everything a user typed is treated as data. It is stripped of angle brackets
@@ -14,6 +16,12 @@ const MAX_TITLE_LENGTH = 80;
 const MAX_DETAIL_LENGTH = 300;
 const MAX_CATEGORY_LENGTH = 40;
 
+/**
+ * Sanitizes untrusted user inputs before injecting into LLM system and user prompt templates.
+ * @param {unknown} value
+ * @param {number} maxLength
+ * @returns {string} Sanitized string safe from prompt-injection tags
+ */
 export function sanitizeForPrompt(value, maxLength) {
   return String(value ?? '')
     .replace(/[<>]/g, ' ')

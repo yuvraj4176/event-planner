@@ -1,3 +1,5 @@
+/** @module config */
+
 // Gemini models to try, in order of preference. When one is out of quota,
 // overloaded or retired, the next one is used automatically.
 export const DEFAULT_GEMINI_MODELS = Object.freeze([
@@ -53,8 +55,23 @@ function readAllowedHosts(env, listenHost) {
   return Object.freeze(hosts);
 }
 
-// Reads settings from environment variables. Nothing is required: without a
-// Gemini API key the application runs entirely on the built-in planner.
+/**
+ * Loads and validates application configuration from environment variables.
+ * @param {Record<string, string | undefined>} [env=process.env]
+ * @returns {Readonly<{
+ *   port: number,
+ *   host: string,
+ *   allowedHosts: readonly string[] | null,
+ *   trustProxy: boolean,
+ *   geminiApiKey: string,
+ *   geminiModels: readonly string[],
+ *   aiTimeoutMs: number,
+ *   rateLimitWindowMs: number,
+ *   rateLimitMax: number,
+ *   aiRateLimitMax: number,
+ *   maxBodyBytes: number
+ * }>}
+ */
 export function loadConfig(env = process.env) {
   const host = env.HOST || '127.0.0.1';
   return Object.freeze({

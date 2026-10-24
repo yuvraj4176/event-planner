@@ -1,10 +1,13 @@
+/** @module http/clientAddress */
+
 const MAX_ADDRESS_LENGTH = 64;
 
-// The address used to rate limit a visitor. Behind a trusted proxy (such as
-// Vercel) every connection comes from the proxy, so the visitor's address is
-// taken from the X-Forwarded-For header that the proxy sets. That header is only
-// believed when the settings say a trusted proxy is in front of the server,
-// because anyone can send it to a server that is reached directly.
+/**
+ * Resolves the client IP address for rate limiting, respecting trusted proxy headers when configured.
+ * @param {import('node:http').IncomingMessage} req
+ * @param {boolean} trustProxy - Whether trusted reverse proxy (e.g. Vercel) is active
+ * @returns {string} Sanitized client IP address
+ */
 export function clientAddress(req, trustProxy) {
   if (trustProxy) {
     const [first] = String(req.headers['x-forwarded-for'] ?? '').split(',');

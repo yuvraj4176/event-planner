@@ -1,3 +1,5 @@
+/** @module planner/vendors */
+
 // Every vendor goes through the same four steps; the questions are specific to
 // the kind of vendor.
 const COMMON_STEPS = Object.freeze([
@@ -7,6 +9,13 @@ const COMMON_STEPS = Object.freeze([
   { suffix: 'confirm', text: 'Confirm arrival time and final details one week before the event' },
 ]);
 
+/**
+ * Builds ordered vendor checklists with linked budget allocations and scaled deadlines.
+ * @param {object} definition - Event archetype definition
+ * @param {object} budget - Calculated event budget
+ * @param {object} scaler - Dynamic timeline date scaler
+ * @returns {Array<object>} List of vendor checklists sorted by lead time
+ */
 export function buildVendors(definition, budget, scaler) {
   const lines = new Map(budget.lines.map((line) => [line.key, line]));
 

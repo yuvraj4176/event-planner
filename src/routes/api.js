@@ -1,3 +1,4 @@
+/** @module routes/api */
 import { HttpError } from '../http/errors.js';
 import { diffDays, parseIsoDate, todayIso } from '../planner/dates.js';
 import { describeCurrencies, describeEventTypes, MAX_PRIORITIES } from '../planner/eventTypes.js';
@@ -43,8 +44,11 @@ export function parseHistory(raw) {
     .filter((turn) => turn.text.length > 0);
 }
 
-// Each route is { method, path, limit, handler }. Handlers receive the parsed
-// body and return a JSON-serialisable result.
+/**
+ * Creates API route definitions with path validation, rate limit tier, and response handlers.
+ * @param {{ assistant: object, now?: () => number }} options
+ * @returns {Array<{ method: string, path: string, limit: string, handler: Function }>}
+ */
 export function createApiRoutes({ assistant, now = Date.now }) {
   return [
     {

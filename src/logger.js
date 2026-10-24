@@ -1,5 +1,10 @@
-// Structured JSON logging. Callers pass only event names and non-sensitive
-// fields; request bodies, user text and secrets are never logged.
+/** @module logger */
+
+/**
+ * Creates a structured JSON logger for non-sensitive system events.
+ * @param {{ write?: (line: string) => void, clock?: () => Date }} [options]
+ * @returns {{ info: (event: string, fields?: object) => void, warn: (event: string, fields?: object) => void, error: (event: string, fields?: object) => void }}
+ */
 export function createLogger({ write = (line) => process.stderr.write(`${line}\n`), clock = () => new Date() } = {}) {
   function log(level, event, fields = {}) {
     write(JSON.stringify({ time: clock().toISOString(), level, event, ...fields }));

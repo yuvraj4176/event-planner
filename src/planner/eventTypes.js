@@ -1,3 +1,4 @@
+/** @module planner/eventTypes */
 import { wedding } from './data/wedding.js';
 import { birthday } from './data/birthday.js';
 import { community } from './data/community.js';
@@ -8,13 +9,22 @@ export const EVENT_TYPE_KEYS = Object.freeze(Object.keys(EVENT_TYPES));
 
 export const MAX_PRIORITIES = 3;
 
-// Categories a user may choose to prioritise: every budget line except the reserve.
+/**
+ * Lists categories available for user budget prioritisation.
+ * @param {object} definition
+ * @returns {Array<{ key: string, label: string }>}
+ */
 export function priorityOptions(definition) {
   return definition.budget
     .filter((line) => line.key !== definition.contingencyKey)
     .map(({ key, label }) => ({ key, label }));
 }
 
+/**
+ * Retrieves the event definition by archetype key.
+ * @param {string} key
+ * @returns {object | null}
+ */
 export function getEventType(key) {
   return typeof key === 'string' && Object.hasOwn(EVENT_TYPES, key) ? EVENT_TYPES[key] : null;
 }

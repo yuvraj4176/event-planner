@@ -1,7 +1,11 @@
+/** @module http/router */
 import { HttpError } from './errors.js';
 
-// Maps "METHOD /path" to handlers and distinguishes an unknown path (404) from
-// a known path used with the wrong method (405).
+/**
+ * Creates an HTTP router with automatic 404 Not Found and 405 Method Not Allowed resolution.
+ * @param {Array<{ method: string, path: string, handler: Function, limit?: string }>} routes
+ * @returns {{ resolve: (method: string, path: string) => object }}
+ */
 export function createRouter(routes) {
   const byPath = new Map();
   for (const route of routes) {

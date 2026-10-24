@@ -1,3 +1,4 @@
+/** @module server */
 import { createApp } from './src/app.js';
 import { createGeminiClient } from './src/ai/geminiClient.js';
 import { loadConfig } from './src/config.js';

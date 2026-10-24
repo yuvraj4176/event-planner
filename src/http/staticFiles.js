@@ -1,3 +1,4 @@
+/** @module http/staticFiles */
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -30,9 +31,11 @@ async function listFiles(directory) {
   return nested.flat();
 }
 
-// Loads every file under `root` into memory once at startup. Requests are
-// answered by exact lookup in this table, so a request path can never reach a
-// file that was not in the public folder.
+/**
+ * Pre-loads static assets into memory with ETag hashes and pre-compressed buffers.
+ * @param {string} root - Path to public folder
+ * @returns {Promise<{ serve: (req: import('node:http').IncomingMessage, res: import('node:http').ServerResponse) => boolean }>}
+ */
 export async function loadStaticFiles(root) {
   const files = new Map();
   for (const filePath of await listFiles(root)) {

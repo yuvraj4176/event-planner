@@ -1,3 +1,5 @@
+/** @module http/security */
+
 // Headers applied to every response. The content security policy allows only
 // same-origin scripts and styles: there is no inline code and no third-party
 // origin, so injected markup cannot execute or call out.
@@ -23,7 +25,11 @@ export const SECURITY_HEADERS = Object.freeze({
   'Cross-Origin-Resource-Policy': 'same-origin',
 });
 
-// HSTS is only meaningful, and only sent, when the connection is encrypted.
+/**
+ * Applies security headers including CSP, HSTS, and frame protection to an HTTP response.
+ * @param {import('node:http').ServerResponse} res
+ * @param {import('node:http').IncomingMessage} [req]
+ */
 export function applySecurityHeaders(res, req) {
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
     res.setHeader(name, value);

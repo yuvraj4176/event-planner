@@ -1,10 +1,14 @@
+/** @module env */
 import { fileURLToPath } from 'node:url';
 
 const DEFAULT_ENV_FILE = fileURLToPath(new URL('../.env', import.meta.url));
 
-// Loads settings from the project's .env file into process.env, so the API key
-// can live in a file that is kept out of version control. Variables that are
-// already set in the environment win. A missing file is not an error.
+/**
+ * Loads environment variables from a .env file into process.env without overriding existing keys.
+ * @param {string} [file=DEFAULT_ENV_FILE]
+ * @param {(filePath: string) => void} [load=process.loadEnvFile]
+ * @returns {boolean} True if file was successfully loaded
+ */
 export function loadDotEnv(file = DEFAULT_ENV_FILE, load = process.loadEnvFile) {
   try {
     load(file);

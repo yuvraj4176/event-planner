@@ -1,3 +1,4 @@
+/** @module api/_handler */
 // The API as Vercel serverless functions. Vercel serves the website from
 // public/ itself, so only the API runs here. Each file in this folder re-exports
 // this handler, and Vercel routes /api/<name> to api/<name>.js.
