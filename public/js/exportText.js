@@ -14,7 +14,8 @@ export function fileSlug(name) {
   const slug = String(name)
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, '-')
-    .replace(/^-+|-+$/g, '')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
     .slice(0, 40);
   return slug || 'event';
 }

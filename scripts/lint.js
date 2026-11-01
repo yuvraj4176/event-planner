@@ -43,16 +43,16 @@ export function stripNonCode(source) {
 
 export function importedNames(source) {
   const names = [];
-  for (const match of source.matchAll(/^import\s+([^;]+?)\s+from\s+'[^']+';/gm)) {
+  for (const match of source.matchAll(/^import\s+((?:\{[^}]+\}|\*\s+as\s+[A-Za-z_$][\w$]*|[A-Za-z_$][\w$]*))\s+from\s+'[^']+';/gm)) {
     const clause = match[1];
-    const named = /\{([^}]*)\}/.exec(clause);
+    const named = /\{([^{}]*)\}/.exec(clause);
     if (named) {
       for (const part of named[1].split(',')) {
-        const alias = part.trim().split(/\s+as\s+/).pop();
+        const alias = part.trim().split(/\s+/).pop();
         if (alias) names.push(alias);
       }
     }
-    const rest = clause.replace(/\{[^}]*\}/, '').replace(/,/g, ' ').trim();
+    const rest = clause.replace(/\{[^{}]*\}/, '').replace(/,/g, ' ').trim();
     for (const piece of rest.split(/\s+/).filter(Boolean)) names.push(piece.replace(/^\*\s*as\s*/, ''));
   }
   return names;
@@ -73,7 +73,7 @@ export function lintSource(file, source, project) {
 
   lines.forEach((text, index) => {
     const number = index + 1;
-    if (/\s+$/.test(text)) add(number, 'trailing whitespace');
+    if (/\s$/.test(text)) add(number, 'trailing whitespace');
     if (text.includes('\t')) add(number, 'tab character');
     if (text.length > MAX_LINE_LENGTH && !file.startsWith(WIDE_FILES)) add(number, `line is longer than ${MAX_LINE_LENGTH} characters`);
     if (LEFTOVER.test(text)) add(number, 'leftover work marker');

@@ -3,6 +3,7 @@ import { loadConfig } from '../../src/config.js';
 import { silentLogger } from '../../src/logger.js';
 
 export const disabledAi = { enabled: false, async complete() { throw new Error('not configured'); } };
+const DEFAULT_POST_HEADERS = Object.freeze({ 'Content-Type': 'application/json' });
 
 // Starts the real application on a random port and returns helpers for tests.
 export async function startServer({ config = {}, aiClient = disabledAi, logger = silentLogger, ...options } = {}) {
@@ -24,7 +25,7 @@ export async function startServer({ config = {}, aiClient = disabledAi, logger =
       await new Promise((resolve) => server.close(resolve));
     },
     get: (path, init) => fetch(`${baseUrl}${path}`, init),
-    post: (path, body, headers = { 'Content-Type': 'application/json' }) =>
+    post: (path, body, headers = DEFAULT_POST_HEADERS) =>
       fetch(`${baseUrl}${path}`, { method: 'POST', headers, body: typeof body === 'string' ? body : JSON.stringify(body) }),
   };
 }

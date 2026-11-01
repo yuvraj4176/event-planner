@@ -6,7 +6,7 @@ import { collectElements } from './pageElements.js';
 import { createPlannerPage } from './plannerPage.js';
 import { browserStorage, createStore } from './store.js';
 
-createPlannerPage({
+void createPlannerPage({
   els: collectElements(document),
   api: createApi(),
   store: createStore(browserStorage()),

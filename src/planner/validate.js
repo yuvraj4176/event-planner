@@ -16,7 +16,7 @@ export const LIMITS = Object.freeze({
 
 const CONTROL_CHARACTERS = /\p{Cc}/gu;
 // Bidirectional overrides can make text render differently from how it is stored.
-const BIDI_OVERRIDES = /[‪-‮⁦-⁩]/g;
+const BIDI_OVERRIDES = /[\u202A-\u202E\u2066-\u2069]/gu;
 
 /**
  * Sanitizes input text by removing control characters, bidi overrides, and collapsing spaces.

@@ -118,12 +118,12 @@ export class FakeElement {
 
   // Supports compound selectors such as input[name="x"]:checked, #id and .class.
   matches(selector) {
-    const parsed = /^([a-zA-Z][\w-]*)?((?:[#.][\w-]+|\[[^\]]+\]|:checked)*)$/.exec(selector);
+    const parsed = /^([a-zA-Z][\w-]*)?((?:[#.][\w-]+|\[[^\[\]]+\]|:checked)*)$/.exec(selector);
     if (!parsed) throw new Error(`Unsupported selector: ${selector}`);
     const [, tag, rest] = parsed;
     if (tag && this.tagName !== tag.toUpperCase()) return false;
 
-    for (const part of rest.match(/[#.][\w-]+|\[[^\]]+\]|:checked/g) ?? []) {
+    for (const part of rest.match(/[#.][\w-]+|\[[^\[\]]+\]|:checked/g) ?? []) {
       if (part === ':checked') {
         if (!this.checked) return false;
       } else if (part[0] === '#') {

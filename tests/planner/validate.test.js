@@ -122,7 +122,8 @@ describe('cleanText', () => {
   });
 
   it('removes bidirectional override characters', () => {
-    assert.equal(cleanText('abc‮def'), 'abcdef');
+    assert.equal(cleanText('abc\u202Edef'), 'abcdef');
+    assert.equal(cleanText('abc\u202Adef\u2066ghi\u2069'), 'abcdefghi');
   });
 
   it('keeps joiners needed by many scripts', () => {

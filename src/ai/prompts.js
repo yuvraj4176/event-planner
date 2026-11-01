@@ -128,5 +128,5 @@ export function sanitizeHistory(history) {
 }
 
 export function cleanAnswer(text) {
-  return text.replace(/\s+\n/g, '\n').trim().slice(0, MAX_ANSWER_LENGTH);
+  return text.replace(/[^\S\n]+\n/g, '\n').trim().slice(0, MAX_ANSWER_LENGTH);
 }

@@ -33,7 +33,7 @@ function buildForm() {
     get value() {
       return radios.find((radio) => radio.checked)?.value ?? '';
     },
-    forEach: (callback) => radios.forEach(callback),
+    forEach: (callback) => radios.forEach((radio) => callback(radio)),
   };
   const priorityOptions = h('div', { id: 'priority-options' });
   const slots = [...FIELD_NAMES, 'eventType', 'priorities'].map((name) => h('p', { class: 'field-error', id: `error-${name}`, hidden: true }));

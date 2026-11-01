@@ -131,7 +131,7 @@ export function createChatbot({ api, storage, getContext = () => null, today = l
 
   const form = h(
     'form',
-    { class: 'chat-form', on: { submit: (event) => { event.preventDefault(); send(input.value); } } },
+    { class: 'chat-form', on: { submit: (event) => { event.preventDefault(); void send(input.value); } } },
     input,
     sendButton,
   );
@@ -159,7 +159,7 @@ export function createChatbot({ api, storage, getContext = () => null, today = l
     h('p', { id: 'chat-disclaimer', class: 'chat-disclaimer', text: 'AI can make mistakes. Check important details.' }),
   );
 
-  fab.addEventListener('click', () => (isOpen ? close() : open()));
+  fab.addEventListener('click', () => (isOpen ? close() : void open()));
   renderFab();
   renderStatus();
   renderLog();
