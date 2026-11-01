@@ -73,10 +73,11 @@ export function lintSource(file, source, project) {
 
   lines.forEach((text, index) => {
     const number = index + 1;
-    if (/\s$/.test(text)) add(number, 'trailing whitespace');
-    if (text.includes('\t')) add(number, 'tab character');
-    if (text.length > MAX_LINE_LENGTH && !file.startsWith(WIDE_FILES)) add(number, `line is longer than ${MAX_LINE_LENGTH} characters`);
-    if (LEFTOVER.test(text)) add(number, 'leftover work marker');
+    const clean = text.replace(/\r$/, '');
+    if (/[ \t]$/.test(clean)) add(number, 'trailing whitespace');
+    if (clean.includes('\t')) add(number, 'tab character');
+    if (clean.length > MAX_LINE_LENGTH && !file.startsWith(WIDE_FILES)) add(number, `line is longer than ${MAX_LINE_LENGTH} characters`);
+    if (LEFTOVER.test(clean)) add(number, 'leftover work marker');
   });
   if (!source.endsWith('\n')) add(lines.length, 'missing final newline');
 
