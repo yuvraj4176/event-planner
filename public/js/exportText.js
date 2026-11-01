@@ -15,7 +15,7 @@ export function fileSlug(name) {
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, '-')
     .replace(/^-+/, '')
-    .replace(/-+$/, '')
+    .replace(/-$/, '')
     .slice(0, 40);
   return slug || 'event';
 }
